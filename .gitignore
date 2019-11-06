@@ -58,6 +58,5 @@ fabric.properties
 .idea/misc.xml
 .idea/modules.xml
 .idea/sonarlint/
-dostuff/logs/**/
-dostuff/__pycache__/
 /target/
+/project/
