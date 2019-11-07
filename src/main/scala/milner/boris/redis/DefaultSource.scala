@@ -12,7 +12,7 @@ class DefaultSource extends RelationProvider with SchemaRelationProvider with Cr
   override def createRelation(sqlContext: SQLContext, parameters: Map[String, String], schema: StructType): BaseRelation = null
 
   override def createRelation(sqlContext: SQLContext, mode: SaveMode, parameters: Map[String, String], data: DataFrame): BaseRelation = {
-    val targetSetName = parameters.getOrElse("path", "Cowabunga")
+    val targetSetName = parameters.getOrElse("path", "milner.boris")
     writeDataFrameToRedis(data, targetSetName, mode)
     null
   }
