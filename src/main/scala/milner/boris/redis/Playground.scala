@@ -4,6 +4,8 @@ import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructT
 import org.apache.spark.sql.{DataFrame, Row, SparkSession}
 import org.apache.spark.sql.functions._
 
+import scala.collection.mutable.ListBuffer
+
 
 object Playground extends App {
 
@@ -16,19 +18,39 @@ object Playground extends App {
     StructField("score", IntegerType, nullable = true)
   )
 
-  val data = Seq(
-    Row(1, "Albert", 100),
-    Row(2, "Isaac", 200),
-    Row(3, "Richard", 300)
-  )
 
+  def time[R](block: => R): R = {
+    val t0 = System.nanoTime()
+    val result = block // call-by-name
+    val t1 = System.nanoTime()
+    println(s"Elapsed time: ${BigDecimal((t1 - t0) / 1000000000).setScale(3).toDouble} seconds.")
+    result
+  }
+
+  //  var data = Seq[Row]()
+  var data = new ListBuffer[Row]()
+
+  println("Creating rows...")
+
+  time {
+    (1 to 1000000).foreach(i => {
+      data += Row(i, "Person-%d".format(i), i * 100)
+    })
+  }
+
+  println("Creating DF from rows...")
   val df: DataFrame = spark.createDataFrame(spark.sparkContext.parallelize(data), StructType(schema))
+
+  println("String formatting")
 
   val readyDf = df.withColumn("graph_node", format_string(s"{'_uid': %d, 'name': %s, 'score': %d}", col("_uid"), col("name"), col("score")))
 
-  readyDf.write
-    .options(Map("format" -> "customFormat"))
-    .format("milner.boris.redis")
-    .save("AwesomePeople:nodes_ingest:Person")
+  println("Writing to redis")
+  time {
+    readyDf.write
+      .options(Map("format" -> "customFormat"))
+      .format("milner.boris.redis")
+      .save("AwesomePeople:nodes_ingest:Person")
+  }
 
 }

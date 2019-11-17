@@ -12,3 +12,8 @@ libraryDependencies ++= Seq(
 
 // https://mvnrepository.com/artifact/redis.clients/jedis
 libraryDependencies += "redis.clients" % "jedis" % "3.1.0"
+
+// https://mvnrepository.com/artifact/org.apache.spark/spark-graphx
+libraryDependencies += "org.apache.spark" %% "spark-graphx" % "2.4.3"
+
+

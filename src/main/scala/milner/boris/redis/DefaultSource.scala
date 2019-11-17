@@ -18,10 +18,15 @@ class DefaultSource extends RelationProvider with SchemaRelationProvider with Cr
   }
 
   def writeDataFrameToRedis(data: DataFrame, targetSetName: String, mode: SaveMode): Unit = {
-    data.foreach((row: Row) => {
-      val r = new Jedis("127.0.0.1")
-      r.sadd(targetSetName, row.getAs[String]("graph_node"))
-    })
 
+    data.foreachPartition((rows: Iterator[Row]) => {
+      val jedis = new Jedis("127.0.0.1")
+      val pipeline = jedis.pipelined()
+      rows.foreach((row: Row) => {
+        pipeline.sadd(targetSetName, row.getAs[String]("graph_node"))
+      })
+      pipeline.sync()
+    })
   }
 }
+
