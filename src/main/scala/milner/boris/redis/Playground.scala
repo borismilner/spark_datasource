@@ -48,9 +48,13 @@ object Playground extends App {
   println("Writing to redis")
   time {
     readyDf.write
-      .options(Map("format" -> "customFormat"))
+      .options(Map(
+        "redis_column_name" -> "graph_node",
+        "redis_set_key" -> "AwesomePeople:nodes_ingest:Person",
+        "redis_host" -> "127.0.0.1"
+      ))
       .format("milner.boris.redis")
-      .save("AwesomePeople:nodes_ingest:Person")
+      .save()
   }
 
 }
