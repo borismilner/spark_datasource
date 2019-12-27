@@ -7,7 +7,7 @@ df.write \
     .option('redis_port', '6379') \
     .option('redis_column_name', 'graph_node') \
     .option('redis_set_key', prefix) \
-    .format(source='milner.boris.redis') \
+    .format(source='spark.to.redis') \
     .save()
 ```
   
