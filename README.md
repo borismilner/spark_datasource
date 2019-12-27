@@ -1,5 +1,8 @@
+A minimalistic implementation of Spark datasource.  
+
 ```python
-ready_for_redis.write \
+# Basic usage
+df.write \
     .option('redis_host', self.config.redis_host_address) \
     .option('redis_port', '6379') \
     .option('redis_column_name', 'graph_node') \
