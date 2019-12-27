@@ -1,2 +1,9 @@
-# spark_datasource
-
+```python
+ready_for_redis.write \
+    .option('redis_host', self.config.redis_host_address) \
+    .option('redis_port', '6379') \
+    .option('redis_column_name', 'graph_node') \
+    .option('redis_set_key', prefix) \
+    .format(source='milner.boris.redis') \
+    .save()
+```
