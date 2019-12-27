@@ -10,3 +10,5 @@ df.write \
     .format(source='milner.boris.redis') \
     .save()
 ```
+  
+Grab the [latest release](https://gitlab.com/borismilner/spark_datasource/-/releases)
