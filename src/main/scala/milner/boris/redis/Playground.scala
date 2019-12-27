@@ -51,7 +51,8 @@ object Playground extends App {
       .options(Map(
         "redis_column_name" -> "graph_node",
         "redis_set_key" -> "AwesomePeople:nodes_ingest:Person",
-        "redis_host" -> "127.0.0.1"
+        "redis_host" -> "127.0.0.1",
+        "redis_port" -> "6379"
       ))
       .format("milner.boris.redis")
       .save()
