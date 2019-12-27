@@ -1,4 +1,4 @@
-package milner.boris.redis
+package spark.to.redis
 
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 import org.apache.spark.sql.{DataFrame, Row, SparkSession}
@@ -54,7 +54,7 @@ object Playground extends App {
         "redis_host" -> "127.0.0.1",
         "redis_port" -> "6379"
       ))
-      .format("milner.boris.redis")
+      .format("spark.to.redis")
       .save()
   }
 

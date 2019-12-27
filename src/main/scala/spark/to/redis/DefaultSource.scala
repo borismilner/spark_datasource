@@ -1,4 +1,4 @@
-package milner.boris.redis
+package spark.to.redis
 
 import org.apache.spark.sql.{DataFrame, Row, SQLContext, SaveMode}
 import org.apache.spark.sql.sources.{BaseRelation, CreatableRelationProvider, RelationProvider, SchemaRelationProvider}
