@@ -1,4 +1,4 @@
-A minimalistic implementation of Spark datasource.  
+A minimalistic implementation of a Spark datasource.  
 
 ```python
 # Basic usage
